@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synaptic Flow</title>
+  <meta name="description" content="Synaptic Flow is an AI automation agency that designs intelligent workflows, custom AI agents, and data pipeline solutions to accelerate your business.">
+  
+  <!-- SEO & Social Media Meta Tags -->
+  <meta property="og:title" content="Synaptic Flow">
+  <meta property="og:description" content="Redefining business efficiency with AI-native workflows and intelligent infrastructure.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://synaptic-flow-steel.vercel.app">
+  <meta property="og:image" content="https://synaptic-flow-steel.vercel.app/LOGO main.png">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Synaptic Flow">
+  <meta name="twitter:description" content="Intelligent systems that think, adapt, and execute.">
+  <meta name="twitter:image" content="https://synaptic-flow-steel.vercel.app/LOGO main.png">
+
+  <link rel="stylesheet" href="style.css?v=1.1">
+  <link rel="stylesheet" href="scroll-stack.css?v=1.0">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cstyle%3E path %7B fill: black; %7D @media (prefers-color-scheme: dark) %7B path %7B fill: white; %7D %7D %3C/style%3E%3Cpath d='M24 73L44 33H64L44 73H24ZM52 65L72 25L84 25L84 35L72 65L52 65Z'/%3E%3C/svg%3E">
+  
+  <!-- Preload Spline Models for faster delivery -->
+  <link rel="preload" href="https://prod.spline.design/l4Z8jUJ92peaxPtR/scene.splinecode" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="https://prod.spline.design/rme7AXOJMiiOCB2o/scene.splinecode" as="fetch" crossorigin="anonymous">
+
+  <!-- Three.js for Background Effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+
+  <!-- Spline JS Runtime -->
+  <script type="module">
+    import { Application } from 'https://esm.sh/@splinetool/runtime';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // Skip Spline 3D on mobile for performance — show static image instead
+      if (window.innerWidth <= 768) {
+        const loader = document.getElementById('splineLoader');
+        if (loader) loader.classList.add('hidden');
+        return;
+      }
+
+      const fgCanvas = document.getElementById('canvas3d');
+      const loader = document.getElementById('splineLoader');
+      
+      const appFg = new Application(fgCanvas);
+      
+      appFg.load('https://prod.spline.design/l4Z8jUJ92peaxPtR/scene.splinecode')
+        .then(() => {
+          loader.classList.add('hidden');
+          fgCanvas.classList.add('loaded');
+        })
+        .catch(err => console.error("Spline Load Error:", err));
+    });
+  </script>
+</head>
+<body>
+
+  <!-- Noise Texture Overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       NAVIGATION — Centered, minimal, augen-style
+       ============================================================ -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <img src="LOGO main.png" alt="Synaptic Flow Logo" class="logo-image">
+        <span class="brand-text"><strong>SYNAPTIC</strong> FLOW</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" class="nav-link" data-section="hero">Home</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+        <li><a href="#testimonials" class="nav-link" data-section="testimonials">Testimonials</a></li>
+        <li><a href="#services" class="nav-link" data-section="services">Services</a></li>
+        <div class="nav-glass-indicator" id="navGlassIndicator"></div>
+      </ul>
+
+
+
+      <a href="https://cal.com/ansh-gour-oewwlq/30min" target="_blank" class="interactive-hover-btn group">
+        <span class="ihb-text-initial">Let's Talk</span>
+        <div class="ihb-text-hover">
+          <span>Let's Talk</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+        <div class="ihb-bg-effect"></div>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#hero" class="nav-link">Home</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#testimonials" class="nav-link">Testimonials</a>
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#contact" class="btn btn-primary" style="margin-top: 1rem;">Get Started <span class="btn-arrow">→</span></a>
+  </div>
+
+  <!-- ============================================================
+       HERO SECTION — Light, augen.pro inspired
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <!-- LightPillar Background (Desktop Only) -->
+    <div id="lightPillarContainer" class="desktop-only" aria-hidden="true"></div>
+
+    <!-- Top Heading -->
+    <!-- Desktop: Left-aligned, 3 lines, Solid Black -->
+    <h2 class="hero-top-heading reveal desktop-only">
+      <span class="heading-line-1">YOUR UNFAIR</span>
+      <span class="heading-line-2">EDGE</span>
+      <span class="heading-line-3">IN AI'S ERA</span>
+    </h2>
+    
+    <!-- Mobile: Centered, 2 lines, Hollow/Solid Mix -->
+    <h2 class="hero-top-heading reveal mobile-only">
+      <span class="heading-line-1">YOUR <span class="text-hollow">UNFAIR</span> EDGE</span>
+      <span class="heading-line-2">IN <span class="text-solid">AI'S</span> <span class="text-hollow">ERA</span></span>
+    </h2>
+
+    <!-- Subheading with Scramble Effect -->
+    <div class="hero-subheading-wrapper reveal reveal-delay-1">
+      <span id="specialTextSubheading" class="special-text-subheading"></span>
+    </div>
+
+    <!-- Book a Call Button (Initially inline, then becomes floating) -->
+    <div class="floating-cta-bar" id="floatingCtaBar">
+      <a
+        href="https://cal.com/ansh-gour-oewwlq/30min"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="floating-cta-btn group"
+        id="floatingCtaBtn"
+        aria-label="Book a call with us"
+      >
+        <span class="ihb-text-initial">Book a call with us</span>
+        <div class="ihb-text-hover">
+          <span>Book a call with us</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+        <div class="ihb-bg-effect"></div>
+      </a>
+    </div>
+
+    <!-- Mobile-only Logo Cloud (inside hero, below subheading) -->
+    <div class="hero-logo-cloud" aria-label="Trusted brands">
+      <div class="hero-logo-cloud-divider"></div>
+      <div class="hero-logo-cloud-row">
+        <p class="hero-logo-cloud-label">Used by the best</p>
+        <div class="hero-logo-cloud-slider">
+          <div class="hero-logo-cloud-track">
+            <img src="https://svgl.app/library/nvidia-wordmark-light.svg" alt="Nvidia" loading="lazy">
+            <img src="https://svgl.app/library/supabase_wordmark_light.svg" alt="Supabase" loading="lazy">
+            <img src="https://svgl.app/library/openai_wordmark_light.svg" alt="OpenAI" loading="lazy">
+            <img src="https://svgl.app/library/turso-wordmark-light.svg" alt="Turso" loading="lazy">
+            <img src="https://svgl.app/library/vercel_wordmark.svg" alt="Vercel" loading="lazy">
+            <img src="https://svgl.app/library/github_wordmark_light.svg" alt="GitHub" loading="lazy">
+            <img src="https://svgl.app/library/claude-ai-wordmark-icon_light.svg" alt="Claude AI" loading="lazy">
+            <img src="https://svgl.app/library/clerk-wordmark-light.svg" alt="Clerk" loading="lazy">
+            <!-- Duplicated for seamless loop -->
+            <img src="https://svgl.app/library/nvidia-wordmark-light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/supabase_wordmark_light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/openai_wordmark_light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/turso-wordmark-light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/vercel_wordmark.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/github_wordmark_light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/claude-ai-wordmark-icon_light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/clerk-wordmark-light.svg" alt="" loading="lazy" aria-hidden="true">
+          </div>
+        </div>
+      </div>
+      <div class="hero-logo-cloud-divider"></div>
+    </div>
+
+    <!-- Central 3D visual area -->
+    <div class="hero-visual">
+      <!-- Static fallback for mobile (no WebGL needed) -->
+
+
+      <!-- Spline 3D Scene (desktop only) -->
+      <div class="spline-container" id="spline-hero">
+        <!-- Loading state -->
+        <div class="spline-loader" id="splineLoader">
+          <div class="spline-spinner"></div>
+          <span>Loading 3D Scene...</span>
+        </div>
+        
+        <!-- Canvas for Foreground Robot -->
+        <canvas id="canvas3d"></canvas>
+      </div>
+    </div>
+
+
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll">
+      <span class="scroll-arrow">↓</span>
+    </div>
+
+    <!-- Light-to-dark transition gradient & blur -->
+    <div class="hero-to-dark" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============================================================
+       OVERVIEW SECTION
+       ============================================================ -->
+  <section class="section overview" id="overview">
+    <div class="container">
+      <div class="overview-header reveal">
+        <div class="section-kicker-badge" style="margin-bottom: 2rem;">
+          <span class="badge-number">1</span>
+          <span class="badge-text">Overview</span>
+        </div>
+        <h2 class="overview-heading">AI is here. Most will <span style="color:var(--accent-2)">react.</span><br>The few with a plan will <span style="color:var(--accent-2)">lead.</span><br><br>We build for those <span style="color:var(--accent-2)">few.</span></h2>
+
+      </div>
+
+
+    </div>
+    <div class="section-fade fade-to-light" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT SECTION
+       ============================================================ -->
+  <section class="section about light-section" id="about">
+    <div class="container">
+      <div class="section-kicker-badge reveal" style="margin-bottom: 5rem; margin-top: -8rem; position: relative; z-index: 10;">
+        <span class="badge-number">2</span>
+        <span class="badge-text">About Founder</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="ansh.jpg.jpeg" alt="Ansh Gour">
+        </div>
+        <div class="about-content reveal reveal-delay-1">
+          <div class="about-header">
+            <h2 class="about-name">Ansh Gour</h2>
+            <div class="about-title">Founder, CEO</div>
+          </div>
+          <div class="about-text-container">
+            <p class="about-text">
+              Since 2021, Ansh has worked with businesses to replace manual, time consuming processes with <span style="color:var(--accent-2); font-weight: 500;">intelligent automation systems</span>.
+            </p>
+            <p class="about-text">
+              He founded <span style="color:var(--accent-2); font-weight: 500;">Leads Lab</span>, where he engineered scalable lead generation and conversion systems that drive measurable growth and operational efficiency.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-fade fade-to-dark" aria-hidden="true"></div>
+  </section>
+
+
+
+  <!-- ============================================================
+       LOGO CLOUD SECTION (Desktop Only)
+       ============================================================ -->
+  <section class="section logo-cloud-section" id="logo-cloud" aria-label="Tools used by the best">
+    <div class="logo-cloud-inner">
+      <div class="logo-cloud-header">
+        <p class="logo-cloud-sub">Already used by</p>
+        <h2 class="logo-cloud-heading">Best in the Game</h2>
+      </div>
+      <div class="logo-cloud-divider"></div>
+      <div class="logo-cloud-slider-wrapper">
+        <div class="logo-cloud-slider" id="logoCloudSlider">
+          <div class="logo-cloud-track">
+            <img src="https://svgl.app/library/nvidia-wordmark-light.svg" alt="Nvidia" loading="lazy">
+            <img src="https://svgl.app/library/supabase_wordmark_light.svg" alt="Supabase" loading="lazy">
+            <img src="https://svgl.app/library/openai_wordmark_light.svg" alt="OpenAI" loading="lazy">
+            <img src="https://svgl.app/library/turso-wordmark-light.svg" alt="Turso" loading="lazy">
+            <img src="https://svgl.app/library/vercel_wordmark.svg" alt="Vercel" loading="lazy">
+            <img src="https://svgl.app/library/github_wordmark_light.svg" alt="GitHub" loading="lazy">
+            <img src="https://svgl.app/library/claude-ai-wordmark-icon_light.svg" alt="Claude AI" loading="lazy">
+            <img src="https://svgl.app/library/clerk-wordmark-light.svg" alt="Clerk" loading="lazy">
+            <!-- Duplicated for seamless loop -->
+            <img src="https://svgl.app/library/nvidia-wordmark-light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/supabase_wordmark_light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/openai_wordmark_light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/turso-wordmark-light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/vercel_wordmark.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/github_wordmark_light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/claude-ai-wordmark-icon_light.svg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://svgl.app/library/clerk-wordmark-light.svg" alt="" loading="lazy" aria-hidden="true">
+          </div>
+        </div>
+      </div>
+      <div class="logo-cloud-divider"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS SECTION
+       ============================================================ -->
+  <section class="section testimonials light-section" id="testimonials">
+    <div class="section-fade-top fade-from-dark" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-kicker-badge reveal" style="margin-bottom: 1.5rem;">
+        <span class="badge-number">3</span>
+        <span class="badge-text">Client Results</span>
+      </div>
+      <h2 class="testimonials-heading reveal">Don't just take our word for it...</h2>
+      
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <p class="testimonial-text">
+            <span class="text-accent">Synaptic Flow turned our inactive leads into a steady stream of qualified booked calls.</span> Their AI reactivation system delivered results with minimal effort on our end.
+          </p>
+          <div class="testimonial-author">
+            <span class="author-name">Ishan Verik</span>
+            <span class="author-company">VISION FLOW</span>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal reveal-delay-1">
+          <p class="testimonial-text">
+            <span class="text-accent">Lead Qualification and Lead Nurturing Automation</span> by Synaptic Flow was a game changer for us.
+          </p>
+          <div class="testimonial-author">
+            <span class="author-name">Kishor Gour</span>
+            <span class="author-company">TRUEWAY FINANCIAL SERVICES</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-fade fade-to-dark" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============================================================
+       SERVICES SECTION
+       ============================================================ -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section-kicker-badge reveal" style="margin-bottom: 2rem;">
+        <span class="badge-number">4</span>
+        <span class="badge-text">Our Services</span>
+      </div>
+      <div class="services-header reveal">
+        <h2 class="services-heading">What<br>We Build.</h2>
+        <p class="services-description">
+          We design and deploy end-to-end AI automation solutions, from intelligent workflow engines to custom AI agents that transform how your business operates.
+        </p>
+      </div>
+
+      <!-- ===== DESKTOP: Scroll-Stack Cards ===== -->
+      <div class="scroll-stack-wrapper" id="scrollStackWrapper">
+        <div class="scroll-stack-inner">
+
+          <!-- Card 1 — Shiny Black -->
+          <div class="scroll-stack-card ss-shiny-black">
+            <div class="ss-card-shimmer"></div>
+            <span class="ss-card-number">01</span>
+            <h3 class="ss-card-title">Lead Generation</h3>
+            <p class="ss-card-desc">AI-powered cold email, outbound automation, and content systems that fill your pipeline with qualified prospects on autopilot.</p>
+            <div class="ss-card-pills">
+              <span class="ss-pill">AI Cold Email</span>
+              <span class="ss-pill">Outbound Automation</span>
+              <span class="ss-pill">Content Systems</span>
+            </div>
+          </div>
+
+          <!-- Card 2 — Metallic Gray -->
+          <div class="scroll-stack-card ss-metallic-gray">
+            <div class="ss-card-shimmer"></div>
+            <span class="ss-card-number">02</span>
+            <h3 class="ss-card-title">Revenue Operations</h3>
+            <p class="ss-card-desc">CRM automation, pipeline optimization, and AI nurture sequences that convert leads into revenue with surgical precision.</p>
+            <div class="ss-card-pills">
+              <span class="ss-pill">CRM Automation</span>
+              <span class="ss-pill">Pipeline Optimization</span>
+              <span class="ss-pill">AI Nurture Sequences</span>
+            </div>
+          </div>
+
+          <!-- Card 3 — Pearl White -->
+          <div class="scroll-stack-card ss-pearl-white">
+            <div class="ss-card-shimmer"></div>
+            <span class="ss-card-number">03</span>
+            <h3 class="ss-card-title">Frontend Experiences</h3>
+            <p class="ss-card-desc">Custom web apps, high-converting landing pages, and interactive demos that leave a lasting impression on every visitor.</p>
+            <div class="ss-card-pills">
+              <span class="ss-pill">Custom Web Apps</span>
+              <span class="ss-pill">Landing Pages</span>
+              <span class="ss-pill">Interactive Demos</span>
+            </div>
+          </div>
+
+          <!-- Card 4 — Shiny Black -->
+          <div class="scroll-stack-card ss-shiny-black">
+            <div class="ss-card-shimmer"></div>
+            <span class="ss-card-number">04</span>
+            <h3 class="ss-card-title">Hiring Systems</h3>
+            <p class="ss-card-desc">Intelligent intake funnels, AI-driven candidate scoring, and fully automated trial workflows that hire A-players faster.</p>
+            <div class="ss-card-pills">
+              <span class="ss-pill">Intake Funnels</span>
+              <span class="ss-pill">AI Scoring</span>
+              <span class="ss-pill">Trial Automation</span>
+            </div>
+          </div>
+
+          <!-- Card 5 — Metallic Gray -->
+          <div class="scroll-stack-card ss-metallic-gray">
+            <div class="ss-card-shimmer"></div>
+            <span class="ss-card-number">05</span>
+            <h3 class="ss-card-title">Revenue Acceleration Systems</h3>
+            <p class="ss-card-desc">Speed-to-lead automation and intelligent lead reactivation systems designed to capture, engage, and convert every opportunity in real time.</p>
+            <div class="ss-card-pills">
+              <span class="ss-pill">Speed to Lead</span>
+              <span class="ss-pill">Lead Reactivation</span>
+              <span class="ss-pill">Conversion Systems</span>
+            </div>
+          </div>
+
+          <!-- Card 6 — Pearl White -->
+          <div class="scroll-stack-card ss-pearl-white">
+            <div class="ss-card-shimmer"></div>
+            <span class="ss-card-number">06</span>
+            <h3 class="ss-card-title">AI Strategy & Training</h3>
+            <p class="ss-card-desc">Team workshops, AI roadmapping, and curated tool selection to align your organisation with the intelligence era.</p>
+            <div class="ss-card-pills">
+              <span class="ss-pill">Team Workshops</span>
+              <span class="ss-pill">AI Roadmapping</span>
+              <span class="ss-pill">Tool Selection</span>
+            </div>
+          </div>
+
+          <div class="scroll-stack-end"></div>
+        </div>
+      </div>
+
+      <!-- ===== MOBILE: Standard Grid Fallback ===== -->
+      <div class="solutions-grid solutions-grid-mobile">
+        <div class="solution-card reveal">
+          <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(108, 92, 231, 0.08) 0%, transparent 60%);"></div>
+          <h3 class="solution-title">Lead Generation</h3>
+          <div class="solution-labels">
+            <span class="solution-label-pill">AI Cold Email</span>
+            <span class="solution-label-pill">Outbound Automation</span>
+            <span class="solution-label-pill">Content Systems</span>
+          </div>
+        </div>
+        <div class="solution-card reveal reveal-delay-1">
+          <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(162, 155, 254, 0.08) 0%, transparent 60%); animation-delay: -2s;"></div>
+          <h3 class="solution-title">Revenue Operations</h3>
+          <div class="solution-labels">
+            <span class="solution-label-pill">CRM Automation</span>
+            <span class="solution-label-pill">Pipeline Optimization</span>
+            <span class="solution-label-pill">AI Nurture Sequences</span>
+          </div>
+        </div>
+        <div class="solution-card reveal reveal-delay-2">
+          <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(116, 185, 255, 0.08) 0%, transparent 60%); animation-delay: -4s;"></div>
+          <h3 class="solution-title">Frontend Experiences</h3>
+          <div class="solution-labels">
+            <span class="solution-label-pill">Custom Web Apps</span>
+            <span class="solution-label-pill">Landing Pages</span>
+            <span class="solution-label-pill">Interactive Demos</span>
+          </div>
+        </div>
+        <div class="solution-card reveal">
+          <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(255, 118, 117, 0.06) 0%, transparent 60%); animation-delay: -6s;"></div>
+          <h3 class="solution-title">Hiring Systems</h3>
+          <div class="solution-labels">
+            <span class="solution-label-pill">Intake Funnels</span>
+            <span class="solution-label-pill">AI Scoring</span>
+            <span class="solution-label-pill">Trial Automation</span>
+          </div>
+        </div>
+        <div class="solution-card reveal reveal-delay-1">
+          <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(85, 239, 196, 0.06) 0%, transparent 60%); animation-delay: -8s;"></div>
+          <h3 class="solution-title">Revenue Acceleration Systems</h3>
+          <div class="solution-labels">
+            <span class="solution-label-pill">Speed to Lead</span>
+            <span class="solution-label-pill">Lead Reactivation</span>
+            <span class="solution-label-pill">Conversion Systems</span>
+          </div>
+        </div>
+        <div class="solution-card reveal reveal-delay-2">
+          <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(253, 203, 110, 0.06) 0%, transparent 60%); animation-delay: -10s;"></div>
+          <h3 class="solution-title">AI Strategy &amp; Training</h3>
+          <div class="solution-labels">
+            <span class="solution-label-pill">Team Workshops</span>
+            <span class="solution-label-pill">AI Roadmapping</span>
+            <span class="solution-label-pill">Tool Selection</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="section-fade fade-to-light" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============================================================
+       APPROACH SECTION
+       ============================================================ -->
+  <section class="section approach light-section" id="approach">
+    <div class="container">
+      <div class="section-kicker-badge" style="margin-bottom: 2rem;">
+        <span class="badge-number">5</span>
+        <span class="badge-text">Our Method</span>
+      </div>
+      <div class="approach-grid">
+        <h2 class="approach-heading">How We<br>Engineer Flow.</h2>
+
+        <div class="approach-content" id="approachContent">
+          <div class="approach-progress-line" id="approachProgress"></div>
+          <div class="approach-step step-animate" data-step="0">
+            <div class="step-dot"><span class="step-dot-inner"></span></div>
+            <div class="step-body">
+              <h3 class="step-title">Discover &amp; Map</h3>
+              <p class="step-desc">We audit your existing workflows, identify friction points, and map the automation opportunities with the highest impact-to-effort ratio.</p>
+            </div>
+          </div>
+          <div class="approach-step step-animate" data-step="1">
+            <div class="step-dot"><span class="step-dot-inner"></span></div>
+            <div class="step-body">
+              <h3 class="step-title">Architect &amp; Design</h3>
+              <p class="step-desc">We design AI-native systems, selecting the right models, orchestration layers, and integration points to fit your infrastructure.</p>
+            </div>
+          </div>
+          <div class="approach-step step-animate" data-step="2">
+            <div class="step-dot"><span class="step-dot-inner"></span></div>
+            <div class="step-body">
+              <h3 class="step-title">Build &amp; Deploy</h3>
+              <p class="step-desc">Our engineering team builds, tests, and deploys production-grade automation systems with robust monitoring and fail-safes.</p>
+            </div>
+          </div>
+          <div class="approach-step step-animate" data-step="3">
+            <div class="step-dot"><span class="step-dot-inner"></span></div>
+            <div class="step-body">
+              <h3 class="step-title">Optimize &amp; Scale</h3>
+              <p class="step-desc">We continuously refine your automation stack, measuring performance, reducing latency, and scaling to match your growth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-fade fade-to-dark" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============================================================
+       SOLUTIONS / CTA SECTION (with Spline slot)
+       ============================================================ -->
+  <section class="section cta-section" id="solutions">
+    <div class="container">
+
+      <h2 class="cta-heading reveal">The Future<br>Is Autonomous.</h2>
+      <p class="cta-desc reveal reveal-delay-1">
+        At the intersection of AI and business operations, we build systems that think, adapt, and execute so you can focus on what matters.
+      </p>
+      <div class="reveal reveal-delay-2">
+        <a href="https://cal.com/ansh-gour-oewwlq/30min" target="_blank" class="btn btn-primary">Let's Build Together <span class="btn-arrow">→</span></a>
+      </div>
+
+    </div>
+    <div class="section-fade fade-to-light" aria-hidden="true"></div>
+  </section>
+
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="LOGO main.png" alt="Big Synaptic Flow Logo" class="footer-huge-logo">
+          <a href="#" class="nav-logo">
+            <span class="brand-text"><strong>SYNAPTIC</strong> FLOW</span>
+          </a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Services</h4>
+          <a href="#services" class="footer-link">Workflow Automation</a>
+          <a href="#services" class="footer-link">Custom AI Agents</a>
+          <a href="#services" class="footer-link">Process Design</a>
+          <a href="#services" class="footer-link">Data Pipelines</a>
+          <a href="#services" class="footer-link">Strategy Consulting</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Company</h4>
+          <a href="#overview" class="footer-link">About</a>
+          <a href="#approach" class="footer-link">Approach</a>
+
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Connect</h4>
+          <a href="mailto:hello@synapticflow.ai" class="footer-link">hello@synapticflow.ai</a>
+
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Synaptic Flow. All rights reserved.</p>
+        <div class="footer-socials">
+          <a href="privacy.html" class="footer-social">Privacy Policy</a>
+          <a href="terms.html" class="footer-social">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+
+</body>
+</html>

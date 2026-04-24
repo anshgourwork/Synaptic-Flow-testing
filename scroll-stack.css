@@ -1,0 +1,215 @@
+/* ============================================================
+   SCROLL-STACK SERVICES (Desktop Only)
+   ============================================================ */
+
+/* Toggle visibility: desktop = stack, mobile = grid */
+.scroll-stack-wrapper {
+  display: none;
+}
+
+.solutions-grid-mobile {
+  display: grid;
+}
+
+@media (min-width: 1025px) {
+  .scroll-stack-wrapper {
+    display: block;
+  }
+
+  .solutions-grid-mobile {
+    display: none !important;
+  }
+}
+
+/* ----- Stack wrapper ----- */
+.scroll-stack-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.scroll-stack-inner {
+  padding: 4rem 0 40rem;
+}
+
+.scroll-stack-end {
+  width: 100%;
+  height: 1px;
+}
+
+/* ----- Individual cards ----- */
+.scroll-stack-card {
+  position: relative;
+  width: 100%;
+  min-height: 22rem;
+  margin: 0 0 100px 0;
+  padding: 3.5rem 3.5rem 3rem;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transform-origin: top center;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 4px 40px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+
+/* ----- Shimmer overlay (moving light reflection) ----- */
+.ss-card-shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ss-card-shimmer::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 60%;
+  height: 220%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.06) 45%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 55%,
+    transparent 70%
+  );
+  animation: ssShimmer 3s linear infinite;
+  transform: rotate(25deg);
+}
+
+@keyframes ssShimmer {
+  0%   { left: -100%; }
+  100% { left: 120%; }
+}
+
+/* ==============================
+   COLOR VARIANTS
+   ============================== */
+
+/* --- Shiny Black --- */
+.ss-shiny-black {
+  background: linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 40%, #0d0d0d 100%);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.ss-shiny-black .ss-card-number { color: rgba(255, 255, 255, 0.12); }
+.ss-shiny-black .ss-card-title  { color: #ffffff; }
+.ss-shiny-black .ss-card-desc   { color: rgba(255, 255, 255, 0.55); }
+.ss-shiny-black .ss-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.55);
+}
+.ss-shiny-black .ss-card-shimmer::before {
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 55%, transparent 70%);
+}
+
+/* --- Metallic Gray --- */
+.ss-metallic-gray {
+  background: linear-gradient(145deg, #2a2a2e 0%, #3d3d42 30%, #28282c 70%, #1f1f23 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ss-metallic-gray .ss-card-number { color: rgba(255, 255, 255, 0.15); }
+.ss-metallic-gray .ss-card-title  { color: #f0f0f0; }
+.ss-metallic-gray .ss-card-desc   { color: rgba(255, 255, 255, 0.5); }
+.ss-metallic-gray .ss-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+}
+.ss-metallic-gray .ss-card-shimmer::before {
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.06) 55%, transparent 70%);
+}
+
+/* --- Pearl White --- */
+.ss-pearl-white {
+  background: linear-gradient(145deg, #f2f0ed 0%, #e8e6e3 30%, #f5f3f0 60%, #eae8e5 100%);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 4px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+    inset 0 2px 0 rgba(255, 255, 255, 0.7);
+}
+.ss-pearl-white .ss-card-number { color: rgba(0, 0, 0, 0.08); }
+.ss-pearl-white .ss-card-title  { color: #111111; }
+.ss-pearl-white .ss-card-desc   { color: rgba(0, 0, 0, 0.5); }
+.ss-pearl-white .ss-pill {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.55);
+}
+.ss-pearl-white .ss-card-shimmer::before {
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.4) 55%, transparent 70%);
+}
+
+/* ==============================
+   CARD CONTENT STYLES
+   ============================== */
+.ss-card-number {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 6vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  line-height: 1;
+  z-index: 2;
+  user-select: none;
+}
+
+.ss-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.ss-card-desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  line-height: 1.7;
+  max-width: 580px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1.5rem;
+}
+
+.ss-card-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.ss-pill {
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
