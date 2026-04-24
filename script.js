@@ -294,8 +294,34 @@ document.addEventListener('DOMContentLoaded', () => {
       this.noiseIntensity = options.noiseIntensity || 0.5;
       this.pillarRotation = options.pillarRotation || 0;
       this.quality = options.quality || 'high';
+      
+      this.isVisible = true;
+      this.rafId = null;
 
       this.init();
+      this.setupObserver();
+    }
+
+    setupObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          this.isVisible = entry.isIntersecting;
+          if (this.isVisible) {
+            if (!this.rafId) {
+              this.lastTime = performance.now();
+              this.animate();
+            }
+          } else {
+            if (this.rafId) {
+              cancelAnimationFrame(this.rafId);
+              this.rafId = null;
+            }
+          }
+        });
+      }, { threshold: 0.05 });
+      
+      const heroSection = document.getElementById('hero');
+      if (heroSection) observer.observe(heroSection);
     }
 
     init() {
@@ -463,6 +489,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     animate() {
+      if (!this.isVisible) return;
+
       const currentTime = performance.now();
       const deltaTime = currentTime - this.lastTime;
       this.lastTime = currentTime;
@@ -473,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.material.uniforms.uRotSin.value = Math.sin(this.time * 0.3);
       
       this.renderer.render(this.scene, this.camera);
-      requestAnimationFrame((t) => this.animate(t));
+      this.rafId = requestAnimationFrame((t) => this.animate(t));
     }
   }
 
