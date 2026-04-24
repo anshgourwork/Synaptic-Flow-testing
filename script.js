@@ -389,29 +389,30 @@ document.addEventListener('DOMContentLoaded', () => {
             p.xz = vec2(rotC * p.x - rotS * p.z, rotS * p.x + rotC * p.z);
             vec3 q = p;
             q.y = p.y * uPillarHeight + uTime;
-            float freq = 1.0;
+            float freq = 1.2;
             float amp = 1.0;
             for(int j = 0; j < WAVE_ITER; j++) {
               q.xz = vec2(uWaveCos * q.x - uWaveSin * q.z, uWaveSin * q.x + uWaveCos * q.z);
-              q += cos(q.zxy * freq - uTime * float(j) * 2.0) * amp;
-              freq *= 2.0;
-              amp *= 0.5;
+              q += cos(q.zxy * freq - uTime * 0.5) * amp;
+              freq *= 1.6;
+              amp *= 0.7;
             }
-            float d = length(cos(q.xz)) - 0.2;
+            float d = length(cos(q.xz)) - 0.1;
             float bound = length(p.xz) - uPillarWidth;
-            float k = 4.0;
+            float k = 1.5; 
             float h = max(k - abs(d - bound), 0.0);
-            d = max(d, bound) + h * h * 0.0625 / k;
-            d = abs(d) * 0.17 + 0.03; // Slightly tighter than before, but not harsh
+            d = max(d, bound) + h * h * 0.05 / k;
+            d = abs(d) * 0.12 + 0.005; // Ultra-sharp wisps
             float grad = clamp((p.y + 15.0) / 30.0, 0.0, 1.0);
-            grad = pow(grad, 2.0); 
+            grad = pow(grad, 2.5); 
             col += mix(uBottomColor, uTopColor, grad) / d;
             t += d * STEP_MULT;
             if(t > 50.0) break;
           }
           float widthNorm = uPillarWidth / 3.0;
           col = tanh(col * uGlowAmount / widthNorm);
-          col -= fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) / 15.0 * uNoiseIntensity;
+          // Subtle grain for a cleaner look
+          col -= fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) / 20.0 * uNoiseIntensity;
           gl_FragColor = vec4(col * uIntensity, 1.0);
         }
       `;
@@ -480,11 +481,12 @@ document.addEventListener('DOMContentLoaded', () => {
   new LightPillarEffect({
     topColor: '#d6d3e1',
     bottomColor: '#000000',
-    intensity: 1.25,     
-    rotationSpeed: 0.45, 
+    intensity: 0.9,      
+    rotationSpeed: 0.3,  
     pillarWidth: 3.0,    
     pillarRotation: 45,
-    glowAmount: 0.004    
+    glowAmount: 0.003,    
+    noiseIntensity: 0.2
   });
 });
 

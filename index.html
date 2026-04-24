@@ -22,38 +22,11 @@
   <link rel="stylesheet" href="scroll-stack.css?v=1.0">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cstyle%3E path %7B fill: black; %7D @media (prefers-color-scheme: dark) %7B path %7B fill: white; %7D %7D %3C/style%3E%3Cpath d='M24 73L44 33H64L44 73H24ZM52 65L72 25L84 25L84 35L72 65L52 65Z'/%3E%3C/svg%3E">
   
-  <!-- Preload Spline Models for faster delivery -->
-  <link rel="preload" href="https://prod.spline.design/l4Z8jUJ92peaxPtR/scene.splinecode" as="fetch" crossorigin="anonymous">
-  <link rel="preload" href="https://prod.spline.design/rme7AXOJMiiOCB2o/scene.splinecode" as="fetch" crossorigin="anonymous">
 
   <!-- Three.js for Background Effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
 
   <!-- Spline JS Runtime -->
-  <script type="module">
-    import { Application } from 'https://esm.sh/@splinetool/runtime';
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      // Skip Spline 3D on mobile for performance — show static image instead
-      if (window.innerWidth <= 768) {
-        const loader = document.getElementById('splineLoader');
-        if (loader) loader.classList.add('hidden');
-        return;
-      }
-
-      const fgCanvas = document.getElementById('canvas3d');
-      const loader = document.getElementById('splineLoader');
-      
-      const appFg = new Application(fgCanvas);
-      
-      appFg.load('https://prod.spline.design/l4Z8jUJ92peaxPtR/scene.splinecode')
-        .then(() => {
-          loader.classList.add('hidden');
-          fgCanvas.classList.add('loaded');
-        })
-        .catch(err => console.error("Spline Load Error:", err));
-    });
-  </script>
 </head>
 <body>
 
@@ -183,20 +156,6 @@
 
     <!-- Central 3D visual area -->
     <div class="hero-visual">
-      <!-- Static fallback for mobile (no WebGL needed) -->
-
-
-      <!-- Spline 3D Scene (desktop only) -->
-      <div class="spline-container" id="spline-hero">
-        <!-- Loading state -->
-        <div class="spline-loader" id="splineLoader">
-          <div class="spline-spinner"></div>
-          <span>Loading 3D Scene...</span>
-        </div>
-        
-        <!-- Canvas for Foreground Robot -->
-        <canvas id="canvas3d"></canvas>
-      </div>
     </div>
 
 
