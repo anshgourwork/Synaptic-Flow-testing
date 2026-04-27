@@ -5,28 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Synaptic Flow</title>
   <meta name="description" content="Synaptic Flow is an AI automation agency that designs intelligent workflows, custom AI agents, and data pipeline solutions to accelerate your business.">
+  <link rel="canonical" href="https://synapticflowsystems.com/">
   
   <!-- SEO & Social Media Meta Tags -->
   <meta property="og:title" content="Synaptic Flow">
   <meta property="og:description" content="Redefining business efficiency with AI-native workflows and intelligent infrastructure.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://synaptic-flow-steel.vercel.app">
-  <meta property="og:image" content="https://synaptic-flow-steel.vercel.app/LOGO main.png">
+  <meta property="og:url" content="https://synapticflowsystems.com">
+  <meta property="og:image" content="https://synapticflowsystems.com/LOGO main.webp">
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Synaptic Flow">
   <meta name="twitter:description" content="Intelligent systems that think, adapt, and execute.">
-  <meta name="twitter:image" content="https://synaptic-flow-steel.vercel.app/LOGO main.png">
+  <meta name="twitter:image" content="https://synapticflowsystems.com/LOGO main.webp">
 
   <link rel="stylesheet" href="style.css?v=1.1">
   <link rel="stylesheet" href="scroll-stack.css?v=1.0">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cstyle%3E path %7B fill: black; %7D @media (prefers-color-scheme: dark) %7B path %7B fill: white; %7D %7D %3C/style%3E%3Cpath d='M24 73L44 33H64L44 73H24ZM52 65L72 25L84 25L84 35L72 65L52 65Z'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/webp" href="LOGO main.webp">
+  <link rel="apple-touch-icon" href="LOGO main.webp">
+  <link rel="shortcut icon" href="LOGO main.webp">
+  <link rel="manifest" href="site.webmanifest">
   
 
   <!-- Three.js for Background Effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
 
-  <!-- Spline JS Runtime -->
 </head>
 <body>
 
@@ -39,7 +42,7 @@
   <nav class="nav" id="nav">
     <div class="container">
       <a href="#" class="nav-logo">
-        <img src="LOGO main.png" alt="Synaptic Flow Logo" class="logo-image">
+        <img src="LOGO main.webp" alt="Synaptic Flow Logo" class="logo-image">
         <span class="brand-text"><strong>SYNAPTIC</strong> FLOW</span>
       </a>
 
@@ -83,7 +86,28 @@
        HERO SECTION — Light, augen.pro inspired
        ============================================================ -->
   <section class="hero" id="hero">
-    <!-- LightPillar Background (Desktop Only) -->
+    <!-- Hero Skeleton Loader -->
+    <div class="hero-skeleton" id="heroSkeleton">
+      <div class="skeleton-background"></div>
+      <div class="skeleton-content">
+        <div class="skeleton-heading desktop-only">
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+        </div>
+        <div class="skeleton-heading mobile-only">
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+        </div>
+        <div class="skeleton-subheading">
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+        </div>
+        <div class="skeleton-cta"></div>
+      </div>
+    </div>
+
+    <!-- LightPillar Background (Static Fallback for Low-end Desktop View) -->
     <div id="lightPillarContainer" class="desktop-only" aria-hidden="true"></div>
 
     <!-- Top Heading -->
@@ -124,7 +148,16 @@
       </a>
     </div>
 
-    <!-- Mobile-only Logo Cloud (inside hero, below subheading) -->
+
+
+
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll">
+      <span class="scroll-arrow">↓</span>
+    </div>
+
+    <!-- Mobile-only Logo Cloud (repositioned to bottom) -->
     <div class="hero-logo-cloud mobile-only" aria-label="Trusted brands">
       <div class="hero-logo-cloud-divider"></div>
       <div class="hero-logo-cloud-row">
@@ -152,17 +185,6 @@
         </div>
       </div>
       <div class="hero-logo-cloud-divider"></div>
-    </div>
-
-    <!-- Central 3D visual area -->
-    <div class="hero-visual">
-    </div>
-
-
-
-    <!-- Scroll indicator -->
-    <div class="hero-scroll">
-      <span class="scroll-arrow">↓</span>
     </div>
 
     <!-- Light-to-dark transition gradient & blur -->
@@ -199,7 +221,7 @@
       </div>
       <div class="about-grid">
         <div class="about-image reveal">
-          <img src="ansh.jpg.jpeg" alt="Ansh Gour">
+          <img src="ansh.jpg.webp" alt="Ansh Gour" loading="lazy">
         </div>
         <div class="about-content reveal reveal-delay-1">
           <div class="about-header">
@@ -364,7 +386,7 @@
 
       <!-- ===== MOBILE: Standard Grid Fallback ===== -->
       <div class="solutions-grid solutions-grid-mobile">
-        <div class="solution-card reveal">
+        <div class="solution-card reveal" data-card-index="0">
           <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(108, 92, 231, 0.08) 0%, transparent 60%);"></div>
           <h3 class="solution-title">Lead Generation</h3>
           <div class="solution-labels">
@@ -373,7 +395,7 @@
             <span class="solution-label-pill">Content Systems</span>
           </div>
         </div>
-        <div class="solution-card reveal reveal-delay-1">
+        <div class="solution-card reveal reveal-delay-1" data-card-index="1">
           <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(162, 155, 254, 0.08) 0%, transparent 60%); animation-delay: -2s;"></div>
           <h3 class="solution-title">Revenue Operations</h3>
           <div class="solution-labels">
@@ -382,7 +404,7 @@
             <span class="solution-label-pill">AI Nurture Sequences</span>
           </div>
         </div>
-        <div class="solution-card reveal reveal-delay-2">
+        <div class="solution-card reveal reveal-delay-2" data-card-index="2">
           <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(116, 185, 255, 0.08) 0%, transparent 60%); animation-delay: -4s;"></div>
           <h3 class="solution-title">Frontend Experiences</h3>
           <div class="solution-labels">
@@ -391,7 +413,7 @@
             <span class="solution-label-pill">Interactive Demos</span>
           </div>
         </div>
-        <div class="solution-card reveal">
+        <div class="solution-card reveal" data-card-index="3">
           <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(255, 118, 117, 0.06) 0%, transparent 60%); animation-delay: -6s;"></div>
           <h3 class="solution-title">Hiring Systems</h3>
           <div class="solution-labels">
@@ -400,7 +422,7 @@
             <span class="solution-label-pill">Trial Automation</span>
           </div>
         </div>
-        <div class="solution-card reveal reveal-delay-1">
+        <div class="solution-card reveal reveal-delay-1" data-card-index="4">
           <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(85, 239, 196, 0.06) 0%, transparent 60%); animation-delay: -8s;"></div>
           <h3 class="solution-title">Revenue Acceleration Systems</h3>
           <div class="solution-labels">
@@ -409,7 +431,7 @@
             <span class="solution-label-pill">Conversion Systems</span>
           </div>
         </div>
-        <div class="solution-card reveal reveal-delay-2">
+        <div class="solution-card reveal reveal-delay-2" data-card-index="5">
           <div class="glow-pattern" style="background: radial-gradient(circle at center, rgba(253, 203, 110, 0.06) 0%, transparent 60%); animation-delay: -10s;"></div>
           <h3 class="solution-title">AI Strategy &amp; Training</h3>
           <div class="solution-labels">
@@ -499,7 +521,7 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <img src="LOGO main.png" alt="Big Synaptic Flow Logo" class="footer-huge-logo">
+          <img src="LOGO main.webp" alt="Big Synaptic Flow Logo" class="footer-huge-logo">
           <a href="#" class="nav-logo">
             <span class="brand-text"><strong>SYNAPTIC</strong> FLOW</span>
           </a>

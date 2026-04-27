@@ -8,6 +8,7 @@
   src: url('neuehaasgrotdisp-55roman-trial.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -15,6 +16,7 @@
   src: url('neuehaasgrotdispround-75bold-trial.otf') format('opentype');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -22,6 +24,7 @@
   src: url('Druk-Super-Trial.otf') format('opentype');
   font-weight: 900;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -29,6 +32,7 @@
   src: url('DrukTextWide-Super-Trial.otf') format('opentype');
   font-weight: 900;
   font-style: normal;
+  font-display: swap;
 }
 
 /* --- Google Fonts --- */
@@ -667,17 +671,146 @@ button {
   color: var(--hero-text);
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .hero {
     min-height: 115vh; /* Increased for desktop */
   }
+}
+
+/* Hero Skeleton Loader */
+.hero-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: #000000;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.8s var(--ease-out-expo), visibility 0.8s;
+  pointer-events: none;
+}
+
+.hero-skeleton.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.skeleton-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(20, 20, 20, 0) 0%,
+    rgba(30, 30, 35, 0.5) 50%,
+    rgba(20, 20, 20, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 2s infinite linear;
+}
+
+.skeleton-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 5vw;
+}
+
+.skeleton-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 15rem;
+}
+
+.skeleton-heading .skeleton-line {
+  height: clamp(3rem, 8vw, 6.5rem);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  width: 60vw;
+}
+
+.skeleton-heading .skeleton-line:nth-child(2) { width: 40vw; }
+.skeleton-heading .skeleton-line:nth-child(3) { width: 50vw; }
+
+.skeleton-subheading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.skeleton-subheading .skeleton-line {
+  height: 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+  width: 30vw;
+}
+
+.skeleton-subheading .skeleton-line:nth-child(2) { width: 25vw; }
+
+.skeleton-cta {
+  margin-top: 4rem;
+  width: 12rem;
+  height: 3rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+}
+
+@media (max-width: 767px) {
+  .hero-skeleton {
+    background: #f5f5f0;
+  }
+  .skeleton-content {
+    padding: 0 var(--container-padding);
+    align-items: center;
+  }
+  .skeleton-heading {
+    margin-top: 9rem;
+    align-items: center;
+  }
+  .skeleton-heading .skeleton-line {
+    width: 80vw;
+    height: 3rem;
+    background: rgba(0, 0, 0, 0.05);
+  }
+  .skeleton-subheading {
+    align-items: center;
+  }
+  .skeleton-subheading .skeleton-line {
+    width: 70vw;
+    background: rgba(0, 0, 0, 0.03);
+  }
+  .skeleton-cta {
+    align-self: center;
+    background: rgba(0, 0, 0, 0.08);
+  }
+  .skeleton-background {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.02) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* Utility Classes */
 .desktop-only { display: none !important; }
 .mobile-only { display: flex !important; }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .desktop-only { display: flex !important; }
   .mobile-only { display: none !important; }
 }
@@ -691,6 +824,22 @@ button {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  background-image: url('static.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.05);
+}
+
+/* Accessibility: Hide 3D pillar if user prefers reduced motion or device is low-performance */
+@media (prefers-reduced-motion: reduce) {
+  #lightPillarContainer canvas {
+    display: none !important;
+  }
+}
+
+.is-low-performance #lightPillarContainer canvas {
+  display: none !important;
 }
 
 /* Typography behind 3D model */
@@ -713,7 +862,7 @@ button {
   transition: all 0.8s var(--ease-out-expo);
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .hero {
     background: #000000 !important;
   }
@@ -722,7 +871,7 @@ button {
     align-items: flex-start;
     font-family: 'Druk', sans-serif;
     font-size: clamp(3rem, 8vw, 7.5rem);
-    margin-top: 20rem;
+    margin-top: 15rem;
     margin-left: 5vw;
     text-align: left;
     color: #d6d3e1 !important;
@@ -740,13 +889,13 @@ button {
   padding: 0 var(--container-padding);
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .hero-subheading-wrapper {
     display: block;
     align-self: flex-start;
     text-align: left;
     margin-left: 5vw;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     width: auto;
     padding: 0;
   }
@@ -760,7 +909,7 @@ button {
   display: inline-block;
   min-height: 1.5em;
   white-space: pre-wrap;
-  color: #ffffff;
+  color: #111111;
   background: none;
   animation: none;
   pointer-events: auto;
@@ -784,17 +933,25 @@ button {
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .special-text-subheading {
     font-family: 'Neue Haas Grotesk', sans-serif;
     font-size: clamp(1.1rem, 2vw, 1.4rem);
     font-weight: bold;
     line-height: 1.5;
-    color: #ffffff !important;
-    background: none !important;
-    -webkit-text-fill-color: #ffffff !important;
-    animation: none !important;
-    background-image: none !important;
+    color: transparent;
+    background: linear-gradient(
+      135deg,
+      #fff 0%,
+      #fff 40%,
+      #000 50%,
+      #fff 60%,
+      #fff 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: textShine 6s linear infinite;
   }
 }
 
@@ -803,9 +960,7 @@ button {
   100% { background-position: -200% center; }
 }
 
-.special-text-subheading.reveal-done {
-  color: var(--hero-text);
-}
+
 
 
 .text-hollow {
@@ -826,7 +981,7 @@ button {
   text-align: center;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .heading-line-1,
   .heading-line-2,
   .heading-line-3 {
@@ -835,114 +990,10 @@ button {
   }
 }
 
-/* 3D Model area â€” center of hero */
-.hero-visual {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  transition: all 1s var(--ease-out-expo);
-  pointer-events: auto;
-}
 
-@media (min-width: 1025px) {
-  .hero-visual {
-    left: 0;
-    right: 0;
-    width: 100%;
-    top: 0;
-    height: 100%;
-  }
-}
-
-.spline-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-#canvas3d {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  z-index: 1;
-  transform: scale(1.2);
-  /* Make the model 20% bigger */
-  transition: opacity 0.8s var(--ease-out-expo);
-}
-
-@media (min-width: 1025px) {
-  #canvas3d {
-    transform: scale(1.2) translateX(15%);
-  }
-}
-
-#canvas3d.loaded {
-  opacity: 1;
-}
 
 /* Blend robot with background */
 
-/* Hide the 'Built with Spline' badge extremely aggressively */
-a[href*="spline.design"],
-.spline-watermark,
-div:has(> a[href*="spline.design"]) {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
-/* Spline loading state */
-.spline-loader {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  z-index: 2;
-  transition: opacity 0.5s var(--ease-out-expo);
-}
-
-.spline-loader.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.spline-loader span {
-  font-size: 0.75rem;
-  color: var(--hero-text-muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.spline-spinner {
-  width: 32px;
-  height: 32px;
-  border: 2px solid rgba(0, 0, 0, 0.08);
-  border-top-color: var(--hero-text-secondary);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 
 /* Bottom content — overlaid on hero */
@@ -1618,10 +1669,13 @@ div:has(> a[href*="spline.design"]) {
 
 .footer-brand {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
   padding-right: 2rem;
+  position: relative;
+  min-height: 200px;
 }
 
 .footer-top {
@@ -1634,17 +1688,25 @@ div:has(> a[href*="spline.design"]) {
 .footer-brand .nav-logo {
   color: #fff;
   margin-left: auto;
+  position: relative;
+  z-index: 2;
   /* Push text closer to the columns on the right */
 }
 
 .footer-huge-logo {
   width: 100%;
-  max-width: 250px;
+  max-width: 500px;
   /* Make it massive in the empty space */
   filter: brightness(0) invert(1);
   /* Pure white */
   opacity: 1;
-  /* Beautiful vivid white logo */
+  /* Pure white as requested */
+  position: absolute;
+  left: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .footer-brand .logo-icon {
@@ -1801,7 +1863,7 @@ div:has(> a[href*="spline.design"]) {
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
   .services-header {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -1826,7 +1888,7 @@ div:has(> a[href*="spline.design"]) {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .nav-links {
     display: none;
   }
@@ -1919,8 +1981,17 @@ div:has(> a[href*="spline.design"]) {
 
   .footer-brand .nav-logo {
     margin-left: 0;
-    position: static;
+    position: relative;
+    z-index: 2;
     transform: none;
+  }
+
+  .footer-huge-logo {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 300px;
+    opacity: 0.1; /* Much more subtle on mobile to avoid clashing with text */
   }
 
   .footer-bottom {
@@ -1966,13 +2037,13 @@ div:has(> a[href*="spline.design"]) {
   pointer-events: auto; /* Ensure button is clickable */
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .floating-cta-bar {
     position: relative;
     bottom: auto;
     left: auto;
     transform: none;
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-left: 5vw;
     width: auto;
     z-index: 100;
@@ -2149,7 +2220,7 @@ div:has(> a[href*="spline.design"]) {
 }
 
 /* ——— Responsive ——— */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .testimonials-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -2316,7 +2387,7 @@ div:has(> a[href*="spline.design"]) {
   overflow: hidden;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .logo-cloud-section {
 
   }
@@ -2410,7 +2481,7 @@ div:has(> a[href*="spline.design"]) {
   display: none; /* Hidden on desktop */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .hero-logo-cloud {
     display: block;
     width: 100%;
@@ -2667,7 +2738,7 @@ div:has(> a[href*="spline.design"]) {
 }
 
 /* Mobile Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
   .solutions-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2696,8 +2767,8 @@ div:has(> a[href*="spline.design"]) {
     box-shadow 0.6s var(--ease-out-expo);
 }
 
-/* Visible state ï¿½ triggered by JS adding .card-visible */
-.solution-card.card-visible {
+/* Visible state — triggered by JS adding .visible */
+.solution-card.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -2737,24 +2808,6 @@ div:has(> a[href*="spline.design"]) {
    MOBILE PERFORMANCE OPTIMIZATIONS
    ============================================================ */
 
-/* Static robot image — hidden on desktop, shown on mobile */
-.hero-robot-static {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  /* Show static robot image on mobile, hide Spline canvas */
-  .hero-robot-static {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-  }
-
-  .spline-container {
-    display: none !important; /* Kill WebGL entirely on mobile */
-  }
 
   /* Disable noise overlay on mobile for performance */
   .noise-overlay {
@@ -2765,7 +2818,7 @@ div:has(> a[href*="spline.design"]) {
 /* ============================================================
    GLOW CARD EFFECT (Desktop Only)
    ============================================================ */
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   [data-glow] {
     --border-size: calc(var(--border, 2) * 1px);
     --spotlight-size: calc(var(--size, 150) * 1px);
@@ -2896,7 +2949,7 @@ div:has(> a[href*="spline.design"]) {
 /* ============================================================
    RESPONSIVE OVERRIDES
    ============================================================ */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .hero {
     min-height: 90vh !important;
   }
@@ -2919,11 +2972,7 @@ div:has(> a[href*="spline.design"]) {
 
   .hero-subheading-wrapper {
     display: block; /* Visible only on Mobile */
-    width: 100% !important;
-    text-align: center !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    margin-top: 1rem !important;
+    margin-top: 4rem !important; /* Move subheading down */
   }
 
   .special-text-subheading {
@@ -2953,5 +3002,5 @@ div:has(> a[href*="spline.design"]) {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shinyTextAnim 3s linear infinite;
+  animation: shinyTextAnim 6s linear infinite;
 }

@@ -11,7 +11,7 @@
   display: grid;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
   .scroll-stack-wrapper {
     display: block;
   }
@@ -50,7 +50,7 @@
   justify-content: space-between;
   overflow: hidden;
   transform-origin: top center;
-  will-change: transform, filter;
+  will-change: transform, opacity, filter;
   backface-visibility: hidden;
   transform-style: preserve-3d;
   -webkit-transform: translateZ(0);

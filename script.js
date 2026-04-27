@@ -4,6 +4,28 @@
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // --- Hero Skeleton Removal ---
+  const heroSkeleton = document.getElementById('heroSkeleton');
+  if (heroSkeleton) {
+    // We wait for a small delay to let the initial render settle
+    // and fonts to load properly
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        heroSkeleton.classList.add('fade-out');
+        // Optional: remove from DOM after fade animation
+        setTimeout(() => heroSkeleton.remove(), 800);
+      }, 500);
+    });
+    
+    // Fallback in case window.load takes too long
+    setTimeout(() => {
+      if (heroSkeleton.parentNode) {
+        heroSkeleton.classList.add('fade-out');
+        setTimeout(() => heroSkeleton.remove(), 800);
+      }
+    }, 3000);
+  }
+
   // --- Scroll Reveal with Intersection Observer ---
   const revealElements = document.querySelectorAll('.reveal');
 
@@ -176,86 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     yearEl.textContent = yearEl.textContent.replace('2026', year);
   }
 
-  // --- Subheading Text & Scramble ---
-  const RANDOM_CHARS = "_!X$0-+*#";
-  function getRandomChar(prevChar) {
-    let char;
-    do { char = RANDOM_CHARS[Math.floor(Math.random() * RANDOM_CHARS.length)]; }
-    while (char === prevChar);
-    return char;
-  }
-
-  function initSpecialText(elementId, text, speed = 25, delay = 0.8) {
-    const el = document.getElementById(elementId);
-    if (!el) return;
-
-    let animationStep = 0;
-    let currentPhase = 'phase1';
-    let intervalId = null;
-
-    const runPhase1 = () => {
-      const maxSteps = text.length * 2;
-      const currentLength = Math.min(animationStep + 1, text.length);
-      let chars = "";
-      for (let i = 0; i < currentLength; i++) {
-        if (text[i] === "\n") {
-          chars += "\n";
-        } else {
-          chars += getRandomChar(chars[i - 1]);
-        }
-      }
-      for (let i = currentLength; i < text.length; i++) {
-        chars += (text[i] === "\n") ? "\n" : "\u00A0"; 
-      }
-      el.textContent = chars;
-      if (animationStep < maxSteps - 1) {
-        animationStep++;
-      } else {
-        currentPhase = 'phase2';
-        animationStep = 0;
-      }
-    };
-
-    const runPhase2 = () => {
-      const revealedCount = Math.floor(animationStep / 2);
-      let chars = "";
-      for (let i = 0; i < revealedCount && i < text.length; i++) {
-        chars += text[i];
-      }
-      if (revealedCount < text.length) {
-        if (text[revealedCount] === "\n") {
-          chars += "\n";
-        } else {
-          chars += (animationStep % 2 === 0) ? "_" : getRandomChar();
-        }
-      }
-      for (let i = chars.length; i < text.length; i++) {
-        if (text[i] === "\n") {
-          chars += "\n";
-        } else {
-          chars += getRandomChar();
-        }
-      }
-      el.textContent = chars;
-      if (animationStep < text.length * 2 - 1) {
-        animationStep++;
-      } else {
-        el.textContent = text;
-        clearInterval(intervalId);
-        el.classList.add('reveal-done', 'shiny-text');
-      }
-    };
-
-    const startAnimation = () => {
-      intervalId = setInterval(() => {
-        if (currentPhase === 'phase1') runPhase1();
-        else runPhase2();
-      }, speed);
-    };
-
-    setTimeout(startAnimation, delay * 1000);
-  }
-
+  // --- Subheading Text ---
   const subheadingText = "Intelligence that runs your business\nbehind the scenes";
   const el = document.getElementById('specialTextSubheading');
   if (el) el.textContent = subheadingText;
@@ -263,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- CTA Button Sticky Behavior (Desktop Only) ---
   const floatingCta = document.getElementById('floatingCtaBar');
   function updateCtaPosition() {
-    if (!floatingCta || !hero || window.innerWidth < 1025) return;
+    if (!floatingCta || !hero || window.innerWidth < 768) return;
     const heroHeight = hero.offsetHeight;
     const scrollY = window.scrollY;
     
@@ -280,8 +223,38 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- LightPillar Effect Implementation (Vanilla Adaptation) ---
   class LightPillarEffect {
     constructor(options = {}) {
+      // Check for prefers-reduced-motion to boost performance and accessibility
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
       this.container = document.getElementById(options.containerId || 'lightPillarContainer');
-      if (!this.container || window.innerWidth < 1025) return;
+      if (!this.container) return;
+
+      // --- Performance & Device Detection ---
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                       (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+      
+      // --- Progressive Enhancement: Hardware Detection ---
+      // We only "upgrade" to the GPU-intensive 3D animation if the device 
+      // is clearly high-performance (6+ cores and 8GB+ RAM).
+      const hasHighMemory = navigator.deviceMemory ? navigator.deviceMemory >= 8 : false;
+      const hasHighCPU = navigator.hardwareConcurrency ? navigator.hardwareConcurrency >= 6 : false;
+      
+      // Check for Data Saver mode and user preferences
+      const isDataSaver = navigator.connection && (navigator.connection.saveData || /2g|3g/.test(navigator.connection.effectiveType));
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const isHighPerformance = hasHighMemory && hasHighCPU && !isDataSaver && !prefersReducedMotion;
+
+      // Only upgrade if it's a high-performance desktop/laptop
+      if (!isHighPerformance || isMobile || window.innerWidth < 1024) {
+        document.body.classList.add('is-low-performance');
+        console.log("Progressive Enhancement: Staying on static background for stability.");
+        return;
+      }
+
+      console.log("Progressive Enhancement: Upgrading to 3D LightPillar animation.");
 
       this.topColor = options.topColor || '#d6d3e1';
       this.bottomColor = options.bottomColor || '#000000';
@@ -296,27 +269,40 @@ document.addEventListener('DOMContentLoaded', () => {
       this.quality = options.quality || 'high';
       
       this.isVisible = true;
+      this.isTabActive = true;
       this.rafId = null;
 
       this.init();
       this.setupObserver();
+      this.setupVisibilityListener();
+    }
+
+    setupVisibilityListener() {
+      document.addEventListener('visibilitychange', () => {
+        this.isTabActive = document.visibilityState === 'visible';
+        this.updateAnimationState();
+      });
+    }
+
+    updateAnimationState() {
+      if (this.isTabActive && this.isVisible) {
+        if (!this.rafId) {
+          this.lastTime = performance.now();
+          this.animate();
+        }
+      } else {
+        if (this.rafId) {
+          cancelAnimationFrame(this.rafId);
+          this.rafId = null;
+        }
+      }
     }
 
     setupObserver() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           this.isVisible = entry.isIntersecting;
-          if (this.isVisible) {
-            if (!this.rafId) {
-              this.lastTime = performance.now();
-              this.animate();
-            }
-          } else {
-            if (this.rafId) {
-              cancelAnimationFrame(this.rafId);
-              this.rafId = null;
-            }
-          }
+          this.updateAnimationState();
         });
       }, { threshold: 0.05 });
       
@@ -355,9 +341,17 @@ document.addEventListener('DOMContentLoaded', () => {
           powerPreference: effectiveQuality === 'high' ? 'high-performance' : 'low-power',
           precision: settings.precision,
           stencil: false,
-          depth: false
+          depth: false,
+          // CRITICAL: Fail if the browser is using software rendering (no GPU acceleration)
+          // This allows the CSS static background image to show instead of a lagging 3D scene.
+          failIfMajorPerformanceCaveat: true,
+          premultipliedAlpha: false
         });
-      } catch (e) { return; }
+      } catch (e) { 
+        document.body.classList.add('is-low-performance');
+        console.warn("WebGL Performance Caveat detected or WebGL not supported. Falling back to static image.");
+        return; 
+      }
 
       this.renderer.setSize(width, height);
       this.renderer.setPixelRatio(settings.pixelRatio);
@@ -523,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
    Keeps the stacking effect but uses native browser scrolling behavior.
    ============================================================ */
 (function initScrollStack() {
-  if (window.innerWidth < 1025) return;
+  if (window.innerWidth < 768) return;
 
   const wrapper = document.getElementById('scrollStackWrapper');
   if (!wrapper) return;
@@ -608,8 +602,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Use passive scroll listener for native performance
-  window.addEventListener('scroll', updateCardTransforms, { passive: true });
+  // Use requestAnimationFrame for smooth scroll performance
+  let isTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!isTicking) {
+      window.requestAnimationFrame(() => {
+        updateCardTransforms();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }, { passive: true });
 
   // Recalculate on resize
   window.addEventListener('resize', () => {
